@@ -1,6 +1,4 @@
-/**
- * @flow
- */
+// @flow
 
 import { ActionTypes } from './actions';
 
@@ -8,13 +6,25 @@ export type Value = string | number;
 
 export type Filters = {
   [name: string]: {
-    filter: (a: Value, b: Value) => Boolean,
+    filter: (a: Value, b: Value) => boolean,
   },
 };
 
-export type Row = { [key: string]: string } | Array<string>;
+export type Row = { [key: string]: string } | string[];
 
-export type AppData = Array<Row>;
+export type Data = Object;
+
+export type Column = {
+  title: string,
+  prop: string | number,
+  render: (string, Data) => React$Element<any>,
+  sortable: boolean,
+  defaultContent: ?string,
+  width: string | number,
+  className: string | ((string, Data) => string),
+};
+
+export type AppData = Row[];
 
 export type State = {
   initialized: boolean,

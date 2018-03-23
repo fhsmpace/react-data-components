@@ -1,8 +1,23 @@
+// @flow
+
 import React, { Component } from 'react';
 import Table from './Table';
 import Pagination from './Pagination';
+import { type Column } from './types';
 
-export default class PartialTable extends Component {
+type Props = {
+  onFilter: Function,
+  onPageSizeChange: Function,
+  onPageNumberChange: Function,
+  onSort: Function,
+  pageLengthOptions: string[],
+  columns: Column[],
+  keys: any,
+  buildRowOptions: Function,
+  data: Object,
+};
+
+export default class PartialTable extends Component<Props> {
   render() {
     const {
       onFilter,
@@ -40,11 +55,11 @@ export default class PartialTable extends Component {
                 value={pageSize}
                 onChange={onPageSizeChange}
               >
-                {pageLengthOptions.map(opt =>
+                {pageLengthOptions.map(opt => (
                   <option key={opt} value={opt}>
                     {opt === 0 ? 'All' : opt}
-                  </option>,
-                )}
+                  </option>
+                ))}
               </select>
             </div>
             <div>

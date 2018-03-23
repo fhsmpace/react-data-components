@@ -1,6 +1,4 @@
-/**
- * @flow
- */
+// @flow
 
 import { sort, filter } from './utils';
 import { ActionTypes, DOMAIN } from './actions';

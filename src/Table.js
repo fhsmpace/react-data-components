@@ -1,8 +1,11 @@
+// @flow
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { type Column, type Data, type SortBy } from './types';
 
 const simpleGet = key => data => data[key];
-const keyGetter = keys => data => keys.map(key => data[key]);
+const keyGetter = keys => data => keys.map(key => data[key]).join('');
 
 const isEmpty = value => value == null || value === '';
 
@@ -29,18 +32,27 @@ function buildSortProps(col, sortBy, onSort) {
   return {
     onClick: sortEvent,
     // Fire the sort event on enter.
-    onKeyDown: e => {
+    onKeyDown: (e: KeyboardEvent) => {
       if (e.keyCode === 13) sortEvent();
     },
     // Prevents selection with mouse.
-    onMouseDown: e => e.preventDefault(),
+    onMouseDown: (e: Event) => e.preventDefault(),
     tabIndex: 0,
     'aria-sort': order,
     'aria-label': `${col.title}: activate to sort column ${nextOrder}`,
   };
 }
 
-export default class Table extends Component {
+type Props = {
+  keys: string[] | string,
+  columns: Column[],
+  dataArray: Data[],
+  buildRowOptions: Data => Object,
+  sortBy: SortBy,
+  onSort: SortBy => void,
+};
+
+export default class Table extends Component<Props> {
   _headers = [];
 
   static propTypes = {
@@ -79,7 +91,7 @@ export default class Table extends Component {
     // If no width was specified, then set the width that the browser applied
     // initially to avoid recalculating width between pages.
     this._headers.forEach(header => {
-      if (!header.style.width) {
+      if (header && !header.style.width) {
         header.style.width = `${header.offsetWidth}px`;
       }
     });
@@ -113,12 +125,10 @@ export default class Table extends Component {
           scope="col"
           {...sortProps}
         >
-          <span>
-            {col.title}
-          </span>
-          {!order
-            ? null
-            : <span className={`sort-icon sort-${order}`} aria-hidden="true" />}
+          <span>{col.title}</span>
+          {!order ? null : (
+            <span className={`sort-icon sort-${order}`} aria-hidden="true" />
+          )}
         </th>
       );
     });
@@ -129,35 +139,35 @@ export default class Table extends Component {
 
       return (
         <tr key={getKeys(row)} {...trProps}>
-          {columns.map((col, i) =>
+          {columns.map((col, i) => (
             <td key={i} className={getCellClass(col, row)}>
               {getCellValue(col, row)}
-            </td>,
-          )}
+            </td>
+          ))}
         </tr>
       );
     });
 
     return (
       <table {...otherProps}>
-        {!sortBy
-          ? null
-          : <caption className="sr-only" role="alert" aria-live="polite">
-              {`Sorted by ${sortBy.prop}: ${sortBy.order} order`}
-            </caption>}
+        {!sortBy ? null : (
+          <caption className="sr-only" role="alert" aria-live="polite">
+            {`Sorted by ${sortBy.prop}: ${sortBy.order} order`}
+          </caption>
+        )}
         <thead>
-          <tr>
-            {headers}
-          </tr>
+          <tr>{headers}</tr>
         </thead>
         <tbody>
-          {rows.length
-            ? rows
-            : <tr>
-                <td colSpan={columns.length} className="text-center">
-                  No data
-                </td>
-              </tr>}
+          {rows.length ? (
+            rows
+          ) : (
+            <tr>
+              <td colSpan={columns.length} className="text-center">
+                No data
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     );

@@ -1,6 +1,4 @@
-/**
- * @flow
- */
+// @flow
 
 import type { Action, SortBy, Value, Filters } from './types';
 
