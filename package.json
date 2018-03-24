@@ -68,6 +68,10 @@
       "git add"
     ]
   },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
   "jest": {
     "roots": [
       "src"

@@ -4,9 +4,12 @@ import { ActionTypes } from './actions';
 
 export type Value = string | number;
 
+type Filter = (a: Value, b: Value) => boolean;
+
 export type Filters = {
   [name: string]: {
-    filter: (a: Value, b: Value) => boolean,
+    filter: Filter,
+    prop?: Value,
   },
 };
 
@@ -24,13 +27,11 @@ export type Column = {
   className: string | ((string, Data) => string),
 };
 
-export type AppData = Row[];
-
 export type State = {
   initialized: boolean,
-  initialData: AppData,
-  data: AppData,
-  page: AppData,
+  initialData: Row[],
+  data: Row[],
+  page: Row[],
   sortBy: ?SortBy,
   pageSize: number,
   pageNumber: number,
