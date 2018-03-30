@@ -34,7 +34,7 @@ export default class PartialTable extends Component {
         <div className="row">
           <div className="col-xs-12">
             <div>
-              <label htmlFor="search-field">Search:</label>
+              <label htmlFor="search-field">Search: </label>
               <input
                 id="search-field"
                 type="search"
@@ -43,27 +43,24 @@ export default class PartialTable extends Component {
               />
             </div>
           </div>
+          <div className="col-xs-12">
+            <Pagination
+              className="pagination pull-right"
+              currentPage={pageNumber}
+              totalPages={totalPages}
+              onChangePage={onPageNumberChange}
+            />
+          </div>
         </div>
-
-        <div className="col-xs-12">
-          <Table
-            className="table table-bordered"
-            dataArray={page}
-            columns={columns}
-            keys={keys}
-            buildRowOptions={buildRowOptions}
-            sortBy={sortBy}
-            onSort={onSort}
-          />
-        </div>
-        <div className="col-xs-12">
-          <Pagination
-            className="pagination pull-right"
-            currentPage={pageNumber}
-            totalPages={totalPages}
-            onChangePage={onPageNumberChange}
-          />
-        </div>
+        <Table
+          className="table table-bordered"
+          dataArray={page}
+          columns={columns}
+          keys={keys}
+          buildRowOptions={buildRowOptions}
+          sortBy={sortBy}
+          onSort={onSort}
+        />
       </div>
     );
   }

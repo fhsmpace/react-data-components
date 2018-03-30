@@ -1,6 +1,6 @@
 {
-  "name": "react-data-components",
-  "version": "1.2.0",
+  "name": "react-data-components-mp",
+  "version": "0.0.1",
   "description": "React data components",
   "keywords": [
     "pagination",
@@ -19,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/carlosrocha/react-data-components"
+    "url": "https://github.com/fhsmpace/react-data-components-mp"
   },
   "dependencies": {
     "lodash": "^4.13.1",
@@ -37,6 +37,7 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-1": "^6.5.0",
+    "css-loader": "^0.28.11",
     "flow-bin": "^0.49.1",
     "husky": "^0.14.1",
     "jest": "^20.0.4",
