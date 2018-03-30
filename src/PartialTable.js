@@ -32,21 +32,7 @@ export default class PartialTable extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-xs-4">
-            <div>
-              <label htmlFor="page-menu">Page size:</label>
-              <select
-                id="page-menu"
-                value={pageSize}
-                onChange={onPageSizeChange}
-              >
-                {pageLengthOptions.map(opt =>
-                  <option key={opt} value={opt}>
-                    {opt === 0 ? 'All' : opt}
-                  </option>,
-                )}
-              </select>
-            </div>
+          <div className="col-xs-12">
             <div>
               <label htmlFor="search-field">Search:</label>
               <input
@@ -57,24 +43,27 @@ export default class PartialTable extends Component {
               />
             </div>
           </div>
-          <div className="col-xs-8">
-            <Pagination
-              className="pagination pull-right"
-              currentPage={pageNumber}
-              totalPages={totalPages}
-              onChangePage={onPageNumberChange}
-            />
-          </div>
         </div>
-        <Table
-          className="table table-bordered"
-          dataArray={page}
-          columns={columns}
-          keys={keys}
-          buildRowOptions={buildRowOptions}
-          sortBy={sortBy}
-          onSort={onSort}
-        />
+
+        <div className="col-xs-12">
+          <Table
+            className="table table-bordered"
+            dataArray={page}
+            columns={columns}
+            keys={keys}
+            buildRowOptions={buildRowOptions}
+            sortBy={sortBy}
+            onSort={onSort}
+          />
+        </div>
+        <div className="col-xs-12">
+          <Pagination
+            className="pagination pull-right"
+            currentPage={pageNumber}
+            totalPages={totalPages}
+            onChangePage={onPageNumberChange}
+          />
+        </div>
       </div>
     );
   }
